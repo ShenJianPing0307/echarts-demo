@@ -21,14 +21,19 @@
               label="姓名"
               width="180">
         <template slot-scope="scope">
-          <div v-html="scope.row.name"></div>
+          <el-tooltip  content="hello" :disabled="scope.row.name.length !== 28 ? true : false ">
+          <div v-html="scope.row.name.length"></div>
+          </el-tooltip>
         </template>
       </el-table-column>
       <el-table-column
               align="center"
               prop="address"
-              label="地址">
+              label="地址"
+      >
+
       </el-table-column>
+
     </el-table>
       <el-pagination
               @current-change="currentchange"
@@ -50,7 +55,9 @@ export default {
   data(){
     return {
       // flag:true,
-      currentpage1:1
+      currentpage1:1,
+      flags:true,
+      // active: "",
     }
   },
   name: 'HelloWorld',
@@ -110,11 +117,13 @@ export default {
   //   }
   // },
   methods:{
+
       handle(row,column,event,cell){
         console.log('row',row)
         console.log('column',column)
         console.log('event',typeof event.getElementsByTagName('a')[0].getAttribute('offeringIdList'))
         let str = event.getElementsByTagName('a')[0].getAttribute('offeringIdList')
+        console.log(typeof event.getElementsByTagName('a')[0].innerHTML)
         console.log(JSON.parse(str))
         console.log('cell',cell)
       }

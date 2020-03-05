@@ -9,15 +9,15 @@
         return{
           tableData: [{
             date: '2016-05-02',
-            name: '<a offeringIdList="[1,2,3]">王小虎</a>',
+            name: '<a offeringIdList="[]">0</a>',
             address: '上海市普陀区金沙江路 1518 弄'
           }, {
             date: '2016-05-04',
-            name: '王小虎',
+            name: '<a offeringIdList="[1,2,3,4,5]">5</a>',
             address: '上海市普陀区金沙江路 1517 弄'
           }, {
             date: '2016-05-01',
-            name: '王小虎',
+            name: '<a offeringIdList="[1,2,3]">10</a>',
             address: '上海市普陀区金沙江路 1519 弄'
           }, {
             date: '2016-05-03',
