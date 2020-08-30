@@ -9,10 +9,15 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
-    "echarts": "^4.6.0",
+    "echarts": "^4.9.0",
     "echarts-liquidfill": "^2.0.5",
     "element-ui": "^2.13.0",
-    "vue": "^2.6.11"
+    "file-saver": "^2.0.2",
+    "sortablejs": "^1.10.2",
+    "v-charts": "^1.19.0",
+    "vue": "^2.6.11",
+    "vuedraggable": "^2.23.2",
+    "xlsx": "^0.15.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.0",

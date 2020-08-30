@@ -4,10 +4,15 @@
     <!--<div  v-show="flag" id="myChart" :style="{width: '500px', height: '400px'}">图表</div>-->
     <!--<div  v-show="!flag">-->
     <!--<div>-->
+    <div class="export">
+      <el-button @click="exportExcel" style="margin-top: 2px;" size="medium" type="success">导出</el-button>
+    </div>
     <el-table
+            id="rebateSetTable"
             :data="tableData"
             @cell-click="handle"
             border
+            row-key="id"
     >
       <el-table-column
               align="center"
@@ -50,8 +55,12 @@
 </template>
 
 <script>
+  import FileSaver from 'file-saver'
+  import XLSX from 'xlsx'
   import 'echarts-liquidfill/src/liquidFill.js';
+  // import Sortable from 'sortablejs'
 export default {
+
   data(){
     return {
       // flag:true,
@@ -71,6 +80,10 @@ export default {
     getTotal(){
       return this.tableData.length
     }
+  },
+  mounted(){
+    // this.rowDrop();
+    // this.columnDrop();
   },
 
   // watch:{
@@ -117,6 +130,60 @@ export default {
   //   }
   // },
   methods:{
+    // 行拖拽
+    // rowDrop () {
+    //   //此时找到的元素是要拖拽元素的父容器
+    //   const tbody = document.querySelector('.el-table__body-wrapper tbody');
+    //   const _this = this;
+    //   Sortable.create(tbody, {
+    //     //  指定父元素下可被拖拽的子元素
+    //     draggable: ".el-table__row",
+    //     onEnd ({ newIndex, oldIndex }) {
+    //       const currRow = _this.tableData.splice(oldIndex, 1)[0];
+    //       _this.tableData.splice(newIndex, 0, currRow);
+    //     }
+    //   });
+    //   // // 表格中需要实现行拖动，所以选中tr的父级元素
+    //   // const table = document.querySelector('.el-table__body-wrapper tbody')
+    //   // const self = this
+    //   // Sortable.create(table, {
+    //   //   onEnd({ newIndex, oldIndex }) {
+    //   //     console.log(newIndex, oldIndex)
+    //   //     const targetRow = self.resourceList.splice(oldIndex, 1)[0]
+    //   //     self.resourceList.splice(newIndex, 0, targetRow)
+    //   //   }
+    //   // })
+    // },
+    // 列拖拽
+    // columnDrop () {
+    //   const _this = this;
+    //   const wrapperTr = document.querySelector('.el-table__header-wrapper tr');
+    //   this.sortable = Sortable.create(wrapperTr, {
+    //     animation: 180,
+    //     delay: 0,
+    //     onEnd: evt => {
+    //       // const oldItem = this.dropCol[evt.oldIndex];
+    //       // _this.tableData.splice(evt.oldIndex, 1)
+    //       // this.dropCol.splice(evt.oldIndex, 1);
+    //       // this.dropCol.splice(evt.newIndex, 0, oldItem);
+    //     }
+    //   });
+    // },
+
+    exportExcel () {
+      /* generate workbook object from table */
+      let wb = XLSX.utils.table_to_book(document.querySelector('#rebateSetTable'));
+      /* get binary string as output */
+      let wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' });
+      try {
+        FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), '用户提交返利表.xlsx');
+      } catch (e)
+      {
+        if (typeof console !== 'undefined')
+          console.log(e, wbout)
+      }
+      return wbout
+    },
 
       handle(row,column,event,cell){
         console.log('row',row)
