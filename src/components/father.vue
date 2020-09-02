@@ -1,9 +1,9 @@
 <template>
     <div>
-        <ve-histogram :data="chartData" :settings="chartSettings" :extend="chartExtend"></ve-histogram>
+        <ve-histogram  :toolbox="toolbox" :data="chartData"  width="300px" :settings="chartSettings" :extend="chartExtend" :events="chartEvent"></ve-histogram>
 
         <p></p>
-        <ve-bar :data="chartData1" :settings="chartSettings1"></ve-bar>
+        <ve-bar :data="chartData1" :settings="chartSettings1" ref="chart"></ve-bar>
     </div>
     <!--<HelloWorld :tableData="tableData" v-if="tableData"></HelloWorld>-->
 </template>
@@ -17,7 +17,13 @@
         stack: {
           'xxx': ['访问用户', '下单用户']
         }
-      }
+      },
+        this.toolbox = {
+          feature: {
+            magicType: {type: ['line', 'bar']},
+            saveAsImage: {}
+          }
+        }
 
       this.chartSettings = {
         // axisSite: { right: ['下单率'] },
@@ -149,7 +155,18 @@
         }
 
       }
+
+      var self = this
+      this.chartEvent = {
+        click:function (e) {
+          self.name = e.name
+          console.log(e)
+        }
+      }
         return{
+
+
+
           // tableData: [{
           //   date: '2016-05-02',
           //   name: '<a offeringIdList="[]">0</a>',
@@ -199,6 +216,19 @@
     name: "father",
     components: {
       // HelloWorld
+    },
+
+    mounted(){
+      this.$nextTick(_ => {
+        // this.$refs[`chart${v}`].echarts.resize()
+        console.log(this.$refs['chart'])
+      })
+
+    },
+    methods:{
+
+
+
     }
   }
 </script>
