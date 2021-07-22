@@ -17,7 +17,7 @@
     "v-charts": "^1.19.0",
     "vue": "^2.6.11",
     "vuedraggable": "^2.23.2",
-    "xlsx": "^0.15.5"
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.0",
